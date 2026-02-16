@@ -1,0 +1,48 @@
+{
+  "name": "personal-vault",
+  "version": "1.0.0",
+  "description": "Secure encrypted personal data vault with authentication and access control",
+  "kind": "vault",
+  "author": "OpenClaw",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "capabilities": {
+    "storage": true,
+    "encryption": true,
+    "authentication": true,
+    "access-control": true,
+    "audit-logging": true
+  },
+  "config": {
+    "schema": "config-schema.json",
+    "defaults": {
+      "vaultDir": "~/.openclaw/vault",
+      "encryptionAlgorithm": "aes-256-gcm",
+      "keyDerivation": "argon2id",
+      "mfaRequired": true,
+      "auditLogging": true,
+      "maxRequestAge": 3600000,
+      "autoExpireTokens": true
+    }
+  },
+  "tools": [
+    "VaultStore",
+    "VaultQuery",
+    "VaultRequest",
+    "VaultApprove",
+    "VaultPackage",
+    "VaultAudit"
+  ],
+  "commands": [
+    "vault store",
+    "vault request",
+    "vault approve",
+    "vault audit",
+    "vault export"
+  ],
+  "hooks": [
+    "before-vault-request",
+    "after-vault-access",
+    "vault-audit-log"
+  ]
+}

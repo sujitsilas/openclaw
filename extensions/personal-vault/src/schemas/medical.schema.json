@@ -1,0 +1,224 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Medical Records",
+  "description": "Schema for personal medical and health information",
+  "type": "object",
+  "properties": {
+    "recordType": {
+      "type": "string",
+      "enum": [
+        "vaccination",
+        "prescription",
+        "lab-result",
+        "diagnosis",
+        "treatment",
+        "insurance",
+        "allergy",
+        "medical-history"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date of the medical record"
+    },
+    "provider": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "facility": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        },
+        "npi": {
+          "type": "string",
+          "description": "National Provider Identifier"
+        }
+      }
+    },
+    "patient": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date"
+        },
+        "mrn": {
+          "type": "string",
+          "description": "Medical Record Number"
+        }
+      },
+      "required": ["name"]
+    },
+    "vaccination": {
+      "type": "object",
+      "properties": {
+        "vaccine": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "lotNumber": {
+          "type": "string"
+        },
+        "dose": {
+          "type": "integer"
+        },
+        "administeredDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "nextDueDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "prescription": {
+      "type": "object",
+      "properties": {
+        "medication": {
+          "type": "string"
+        },
+        "dosage": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "prescriber": {
+          "type": "string"
+        },
+        "refills": {
+          "type": "integer"
+        }
+      }
+    },
+    "labResult": {
+      "type": "object",
+      "properties": {
+        "testName": {
+          "type": "string"
+        },
+        "testCode": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "referenceRange": {
+          "type": "string"
+        },
+        "abnormalFlag": {
+          "type": "boolean"
+        }
+      }
+    },
+    "diagnosis": {
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": "string"
+        },
+        "icdCode": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["mild", "moderate", "severe"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "resolved", "chronic"]
+        },
+        "diagnosedDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "insurance": {
+      "type": "object",
+      "properties": {
+        "carrier": {
+          "type": "string"
+        },
+        "policyNumber": {
+          "type": "string"
+        },
+        "groupNumber": {
+          "type": "string"
+        },
+        "coverageType": {
+          "type": "string"
+        },
+        "effectiveDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "expirationDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "encryptedPath": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "privacy": {
+      "type": "object",
+      "properties": {
+        "shareable": {
+          "type": "boolean",
+          "default": false
+        },
+        "restrictedFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": ["recordType", "date", "patient"]
+}

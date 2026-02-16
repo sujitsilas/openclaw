@@ -1,0 +1,233 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Employment Records",
+  "description": "Schema for employment and professional information",
+  "type": "object",
+  "properties": {
+    "recordType": {
+      "type": "string",
+      "enum": [
+        "employment-history",
+        "offer-letter",
+        "contract",
+        "performance-review",
+        "certification",
+        "background-check",
+        "reference",
+        "termination"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "employer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "industry": {
+          "type": "string"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            }
+          }
+        },
+        "website": {
+          "type": "string",
+          "format": "uri"
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "phone": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": ["name"]
+    },
+    "position": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "employmentType": {
+          "type": "string",
+          "enum": ["full-time", "part-time", "contract", "intern", "temporary"]
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "current": {
+          "type": "boolean"
+        }
+      },
+      "required": ["title"]
+    },
+    "compensation": {
+      "type": "object",
+      "properties": {
+        "salary": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "payPeriod": {
+          "type": "string",
+          "enum": ["hourly", "annual", "monthly", "weekly"]
+        },
+        "bonus": {
+          "type": "object",
+          "properties": {
+            "target": {
+              "type": "number"
+            },
+            "type": {
+              "type": "string"
+            }
+          }
+        },
+        "equity": {
+          "type": "object",
+          "properties": {
+            "shares": {
+              "type": "number"
+            },
+            "vestingSchedule": {
+              "type": "string"
+            }
+          }
+        },
+        "benefits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responsibilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "achievements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "credentialId": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "backgroundCheck": {
+      "type": "object",
+      "properties": {
+        "completedDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["passed", "pending", "failed"]
+        }
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "encryptedPath": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "properties": {
+        "shareable": {
+          "type": "boolean",
+          "default": true
+        },
+        "restrictedFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Fields that should not be shared (e.g., compensation details)"
+        }
+      }
+    }
+  },
+  "required": ["recordType", "date", "employer"]
+}

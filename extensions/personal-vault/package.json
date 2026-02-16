@@ -1,0 +1,33 @@
+{
+  "name": "@openclaw/personal-vault",
+  "version": "1.0.0",
+  "description": "Secure encrypted personal data vault for OpenClaw with granular access control",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest"
+  },
+  "keywords": [
+    "openclaw",
+    "vault",
+    "encryption",
+    "privacy",
+    "personal-data",
+    "access-control"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@sinclair/typebox": "0.34.48",
+    "sqlite3": "^5.1.7",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "openclaw": "workspace:*"
+  },
+  "peerDependencies": {
+    "openclaw": "*"
+  }
+}

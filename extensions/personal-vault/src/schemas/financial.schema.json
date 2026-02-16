@@ -1,0 +1,231 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Financial Records",
+  "description": "Schema for financial and banking information",
+  "type": "object",
+  "properties": {
+    "recordType": {
+      "type": "string",
+      "enum": [
+        "bank-account",
+        "tax-return",
+        "investment",
+        "credit-card",
+        "loan",
+        "mortgage",
+        "insurance",
+        "payment-proof",
+        "invoice"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "institution": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["bank", "credit-union", "investment-firm", "insurance-company", "other"]
+        },
+        "routingNumber": {
+          "type": "string"
+        },
+        "swift": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        }
+      }
+    },
+    "account": {
+      "type": "object",
+      "properties": {
+        "accountNumber": {
+          "type": "string"
+        },
+        "accountType": {
+          "type": "string",
+          "enum": ["checking", "savings", "credit", "investment", "retirement"]
+        },
+        "currency": {
+          "type": "string"
+        },
+        "openDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "closed", "frozen"]
+        }
+      }
+    },
+    "taxReturn": {
+      "type": "object",
+      "properties": {
+        "taxYear": {
+          "type": "integer"
+        },
+        "filingStatus": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "type": "string"
+        },
+        "income": {
+          "type": "number"
+        },
+        "deductions": {
+          "type": "number"
+        },
+        "taxPaid": {
+          "type": "number"
+        },
+        "refund": {
+          "type": "number"
+        }
+      }
+    },
+    "investment": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["stocks", "bonds", "mutual-funds", "etf", "crypto", "real-estate", "other"]
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "purchasePrice": {
+          "type": "number"
+        },
+        "purchaseDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "currentValue": {
+          "type": "number"
+        }
+      }
+    },
+    "creditCard": {
+      "type": "object",
+      "properties": {
+        "lastFourDigits": {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        "network": {
+          "type": "string",
+          "enum": ["visa", "mastercard", "amex", "discover", "other"]
+        },
+        "creditLimit": {
+          "type": "number"
+        },
+        "expirationDate": {
+          "type": "string",
+          "pattern": "^[0-9]{2}/[0-9]{2}$"
+        }
+      }
+    },
+    "loan": {
+      "type": "object",
+      "properties": {
+        "loanType": {
+          "type": "string",
+          "enum": ["personal", "auto", "student", "business", "other"]
+        },
+        "principal": {
+          "type": "number"
+        },
+        "interestRate": {
+          "type": "number"
+        },
+        "term": {
+          "type": "integer",
+          "description": "Loan term in months"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "maturityDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "outstandingBalance": {
+          "type": "number"
+        }
+      }
+    },
+    "insurance": {
+      "type": "object",
+      "properties": {
+        "policyType": {
+          "type": "string",
+          "enum": ["life", "health", "auto", "home", "disability", "other"]
+        },
+        "policyNumber": {
+          "type": "string"
+        },
+        "coverage": {
+          "type": "number"
+        },
+        "premium": {
+          "type": "number"
+        },
+        "frequency": {
+          "type": "string",
+          "enum": ["monthly", "quarterly", "annual"]
+        }
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "encryptedPath": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "properties": {
+        "shareable": {
+          "type": "boolean",
+          "default": false
+        },
+        "restrictedFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Sensitive fields that should never be shared"
+        },
+        "verificationOnly": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  },
+  "required": ["recordType", "date"]
+}
